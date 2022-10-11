@@ -1,8 +1,8 @@
-"use strict";
+
 
 window.dataLayer = window.dataLayer || [];
 
-const gtag = (...args) => dataLayer.push(args);
+const gtag = (...args: (string | Date)[]) => dataLayer.push(args);
 
 gtag('js', new Date());
 gtag('config', 'UA-146662310-1');
@@ -24,7 +24,7 @@ async function main() {
 
 	// let data = JSON.parse(await (await (await fetch('data.json')).blob()).text())
 	//bric is bad
-	data = await fetch('data.json').then(response => response.json())
+	data = await fetch('public/data.json').then(response => response.json())
 
 	updateSchedule()
 	countDownDate();
@@ -36,7 +36,7 @@ async function main() {
 /**
  * Easy selector helper function
  */
-function select(el, all = false) {
+function select(el: string, all = false): Element | Element[] {
 	el = el.trim()
 	if (all) {
 		return [...document.querySelectorAll(el)]
@@ -48,7 +48,7 @@ function select(el, all = false) {
 /**
  * Easy event listener function
  */
-function on(type, el, listener, all = false) {
+function on(type: any, el: string, listener: any, all = false) {
 	let selectEl = select(el, all)
 	if (selectEl) {
 		if (all) {
@@ -57,12 +57,13 @@ function on(type, el, listener, all = false) {
 			selectEl.addEventListener(type, listener)
 		}
 	}
+	return null
 }
 
 /**
  * Easy on scroll event listener 
  */
-const onscroll = (el, listener) => {
+const onscroll = (el: any, listener: any): void =>  {
 	el.addEventListener('scroll', listener)
 }
 
